@@ -5,6 +5,7 @@ Application takes txt file and generates users report
 ## Setup
 
 Unzip data file:
+
     $ gunzip data_large.txt.gz
 
 Run this command to install dependencies:
