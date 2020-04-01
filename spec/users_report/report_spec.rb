@@ -3,7 +3,7 @@ RSpec.describe UsersReport::Report do
 
   describe '#parse_row' do
     context 'with user' do
-      let(:row) { load_fixture('user') }
+      let(:row) { load_fixture('user').shift }
 
       it 'sets current user' do
         subject.parse_row(row)
@@ -17,10 +17,10 @@ RSpec.describe UsersReport::Report do
     end
 
     context 'with session' do
-      let(:row) { load_fixture('session') }
+      let(:row) { load_fixture('sessions').shift }
 
       before do
-        user_row = load_fixture('user')
+        user_row = load_fixture('user').shift
         subject.parse_row(user_row)
       end
 
@@ -31,7 +31,7 @@ RSpec.describe UsersReport::Report do
   end
 
   describe '#parse_user' do
-    let(:row) { load_fixture('user') }
+    let(:row) { load_fixture('user').shift }
 
     let(:expected_result) do
       {
@@ -46,7 +46,7 @@ RSpec.describe UsersReport::Report do
   end
 
   describe '#parse_session' do
-    let(:row) { load_fixture('session') }
+    let(:row) { load_fixture('sessions').shift }
 
     let(:expected_result) do
       {

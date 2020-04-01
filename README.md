@@ -21,13 +21,11 @@ And then execute:
 ```ruby
 require 'benchmark'
 
-realtime = Benchmark.realtime do
+Benchmark.realtime do
   users_report = UsersReport::Report.new('data_large.txt')
   users_report.generate!
   File.write('result.json', "#{users_report.to_json}\n")
 end
-
-puts "Report generated in #{realtime} sec."
 ```
 
 ## Testing

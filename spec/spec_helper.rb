@@ -1,5 +1,6 @@
 require "bundler/setup"
 require "users_report"
+require "pry"
 
 Dir["#{File.expand_path('../support', __FILE__)}/*.rb"].each { |f| require f }
 

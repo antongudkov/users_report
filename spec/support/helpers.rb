@@ -1,11 +1,18 @@
 module Helpers
   def load_fixture(name)
-    CSV.read("spec/fixtures/#{name}.txt").shift
+    CSV.read("spec/fixtures/#{name}.txt")
+  end
+
+  def load_sessions
+    load_fixture('sessions').map { |row| parse_session(row) }
   end
 
   def load_session
-    row = load_fixture('session')
+    row = load_fixture('sessions').shift
+    parse_session(row)
+  end
 
+  def parse_session(row)
     {
       user_id: row[1],
       session_id: row[2],
@@ -16,7 +23,7 @@ module Helpers
   end
 
   def load_user
-    row = load_fixture('user')
+    row = load_fixture('user').shift
 
     {
       id: row[1],

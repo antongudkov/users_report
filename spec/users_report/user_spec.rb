@@ -104,23 +104,25 @@ RSpec.describe UsersReport::User do
   end
 
   describe '#as_json' do
-    let(:session_2) { UsersReport::Session.new(load_session) }
+    let(:sessions) { load_sessions }
     
     let(:expected_result) do
       {
-        'sessionsCount' => 2,
-        'totalTime' => '174 min.',
-        'longestSession' => '87 min.',
-        'browsers' => 'SAFARI 29, SAFARI 29',
-        'usedIE' => false,
+        'sessionsCount' => 6,
+        'totalTime' => '455 min.',
+        'longestSession' => '118 min.',
+        'browsers' => 'FIREFOX 12, INTERNET EXPLORER 28, INTERNET EXPLORER 28, INTERNET EXPLORER 35, SAFARI 29, SAFARI 39',
+        'usedIE' => true,
         'alwaysUsedChrome' => false,
-        'dates' => ['2016-10-23', '2016-10-23']
+        'dates' => ['2017-09-27', '2017-03-28', '2017-02-27', '2016-10-23', '2016-09-15', '2016-09-01']
       }
     end
 
     before do
-      subject.add_session(session)
-      subject.add_session(session_2)
+      sessions.each do |s|
+        session = UsersReport::Session.new(s)
+        subject.add_session(session)
+      end
     end
 
     it { expect(subject.as_json).to eq(expected_result) }
