@@ -1,35 +1,37 @@
-# UsersReport
+# Users Report
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/users_report`. To experiment with that code, run `bin/console` for an interactive prompt.
+Application takes txt file and generates users report
 
-TODO: Delete this and the text above, and describe your gem
+## Setup
 
-## Installation
+Unzip data file:
+    $ gunzip data_large.txt.gz
 
-Add this line to your application's Gemfile:
+Run this command to install dependencies:
 
-```ruby
-gem 'users_report'
-```
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install users_report
+    $ ./bin/setup
 
 ## Usage
 
-TODO: Write usage instructions here
+Run ruby console:
 
-## Development
+    $ ./bin/console
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+And then execute:
+```ruby
+require 'benchmark'
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+realtime = Benchmark.realtime do
+  users_report = UsersReport::Report.new('data_large.txt')
+  users_report.generate!
+  File.write('result.json', "#{users_report.to_json}\n")
+end
 
-## Contributing
+puts "Report generated in #{realtime} sec."
+```
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/users_report.
+## Testing
+
+Run rspec:
+
+    $ bundle exec rake spec
